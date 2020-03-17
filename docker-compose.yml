@@ -15,12 +15,11 @@ services:
                 - no_proxy
       dockerfile: docker/frontendserverDev/Dockerfile
     volumes:
-      #- ${PWD}:/frontendserverAppDev
-      #- iTlAsNodeModules:/frontendserverAppDev/node_modules
       - ./certificates:/certificates/
       - ./ReactApp/jsconfig.json:/frontendserverAppDev/jsconfig.json
       - ./ReactApp/package.json:/frontendserverAppDev/package.json
       - ./ReactApp/src/components:/frontendserverAppDev/src/components
+      - ./ReactApp/src/utils:/frontendserverAppDev/src/utils
       - ./ReactApp/src/App.js:/frontendserverAppDev/src/App.js
       - ./ReactApp/src/index.css:/frontendserverAppDev/src/index.css
       - ./ReactApp/src/index.js:/frontendserverAppDev/src/index.js
