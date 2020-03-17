@@ -10,25 +10,21 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 
-switch(process.env.NODE_ENV){
+switch (process.env.NODE_ENV) {
   case 'production':
-  if(typeof process.env.REACT_APP_PyEpicsServerURL==='undefined'){
+    if (typeof process.env.REACT_APP_PyEpicsServerURL === 'undefined') {
+      serviceWorker.unregister();
+    }
+    else {
+      serviceWorker.unregister();
+    }
+    break;
 
-  serviceWorker.unregister();
-  }
-  else{
-    serviceWorker.unregister();
-  }
-
-
-
-
-  break;
   case 'development':
-  serviceWorker.unregister();
-  break;
+    serviceWorker.unregister();
+    break;
 
   case 'test':
-  serviceWorker.unregister();
-  break;
+    serviceWorker.unregister();
+    break;
 }
