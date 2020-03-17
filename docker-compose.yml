@@ -1,31 +1,33 @@
 version: '3.2'
 services:
-  stagingprodfrontendserver:
-    env_file: .env
+  stagingfrontendserverdev:
+    environment:
+      - REACT_APP_PyEpicsServerBASEURL=http://10.0.38.78
+      - REACT_APP_EnableLogin=false
+      - REACT_APP_FrontendServerPORT=9000
+      - REACT_APP_PyEpicsServerPORT=5000
+      - REACT_APP_EnableLoginStyleguide=false
     build:
       context: ./
       args: # Environment variables available at build-time
                 - http_proxy
                 - https_proxy
                 - no_proxy
-      dockerfile: docker/frontendserver/Dockerfile
+      dockerfile: docker/frontendserverDev/Dockerfile
     volumes:
+      #- ${PWD}:/frontendserverAppDev
+      #- iTlAsNodeModules:/frontendserverAppDev/node_modules
       - ./certificates:/certificates/
+      - ./ReactApp/jsconfig.json:/frontendserverAppDev/jsconfig.json
+      - ./ReactApp/package.json:/frontendserverAppDev/package.json
+      - ./ReactApp/src/components:/frontendserverAppDev/src/components
+      - ./ReactApp/src/App.js:/frontendserverAppDev/src/App.js
+      - ./ReactApp/src/index.css:/frontendserverAppDev/src/index.css
+      - ./ReactApp/src/index.js:/frontendserverAppDev/src/index.js
+      - ./ReactApp/src/Main.js:/frontendserverAppDev/src/Main.js
+      - ./ReactApp/src/routes.js:/frontendserverAppDev/src/routes.js
+      - ./ReactApp/src/serviceWorker.js:/frontendserverAppDev/src/serviceWorker.js
+      - ./submodules/React-Automation-Studio/ReactApp/src:/frontendserverAppDev/src/React-Automation-Studio/
+      - ./ReactApp/public:/frontendserverAppDev/public
     restart: always
     network_mode: host
-        #ports:
-    # - "80:9000"
-  stagingprodpvserver:
-    env_file: .env
-    build:
-      context: ./
-      args: # Environment variables available at build-time
-                - http_proxy
-                - https_proxy
-                - no_proxy
-      dockerfile: docker/pvserver/Dockerfile
-    restart: always
-    network_mode: host
-    volumes:
-      - ./certificates:/certificates/
-      - ./users:/pvServer/userAuthentication/users
